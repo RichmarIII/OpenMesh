@@ -220,22 +220,16 @@ check(unsigned int _targets, std::ostream& _os)
     typename Mesh::FaceHandle             fh;
     typename Mesh::ConstFaceHalfedgeIter  fh_it;
 
-    for (; f_it != f_end; ++f_it)
-    {
-      if (!is_deleted(*f_it))
-      {
-        fh = *f_it;
-
-        for (fh_it=mesh_.cfh_iter(fh); fh_it.is_valid(); ++fh_it)
-        {
-          if (mesh_.face_handle(*fh_it) != fh)
-          {
-            _os << "MeshChecker: face " << fh
-                << ": its halfedge does not reference face\n";
-            ok = false;
-          }
+    for(const auto fh: mesh_.faces()) {
+        for(const auto heh: fh.halfedges()) {
+            if (heh.face() != fh) {
+                _os << "MeshChecker: face " << fh
+                    << ": its halfedge " << heh << " references a different face: "
+                    << heh.face()
+                    << ".\n";
+                ok = false;
+            }
         }
-      }
     }
   }
 
