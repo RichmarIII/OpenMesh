@@ -22,6 +22,7 @@
 <b>Tools</b>
 <ul>
 <li>Decimater: Fixed incompatibility with Eigen vector type</li>
+<li>MeshChecker: Check for more Problems with invalid handles and update to newer API.</li>
 </ul>
 
 <b>IO</b>
