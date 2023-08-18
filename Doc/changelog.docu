@@ -17,6 +17,7 @@
 <b>Core</b>
 <ul>
 <li>Fixed several warnings</li>
+<li>Make Previous Halfedge Attribute optional again </li>
 </ul>
 
 <b>Tools</b>
