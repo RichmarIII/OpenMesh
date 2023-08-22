@@ -26,7 +26,9 @@ cppcheck:
   stage: build
   script: "CI/ci-cppcheck.sh"
   image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
-  tags: [Docker]
+  tags:
+    - Linux
+    - stretch
   timeout: 3h
   artifacts:
     paths:
