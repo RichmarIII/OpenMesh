@@ -95,7 +95,7 @@ check(unsigned int _targets, std::ostream& _os)
           }
         }
         if (heh.is_valid()) {
-            if (heh.idx() < -1 || heh.idx() >= mesh_.n_halfedges()) {
+          if (heh.idx() < -1 || heh.idx() >= (int)mesh_.n_halfedges()) {
               _os << "MeshChecker: vertex " << vh
                   << " has out-of-bounds outgoing HE: " << heh;
               ok = false;
