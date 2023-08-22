@@ -286,7 +286,7 @@ class PropertyManager {
           Storage::swap(rhs, *this);
         }
 
-        static bool propertyExists(PolyConnectivity &mesh, const char *propname) {
+        static bool propertyExists(const PolyConnectivity &mesh, const char *propname) {
             PROPTYPE dummy;
             return mesh.get_property_handle(dummy, propname);
         }

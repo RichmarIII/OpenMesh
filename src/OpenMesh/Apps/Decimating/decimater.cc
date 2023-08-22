@@ -489,15 +489,11 @@ int main(int argc, char* argv[])
     std::clog << "    Input file: " << ifname << std::endl;
     std::clog << "   Output file: " << ofname << std::endl;
     std::clog << "    #collapses: " << opt.n_collapses << std::endl;
-  }
 
 
-  //----------------------------------------
 
+    //----------------------------------------
 
-   
-  if (gverbose)
-  {
     std::clog << "Begin decimation" << std::endl;
   }
    
@@ -512,6 +508,7 @@ int main(int argc, char* argv[])
   }
 
   //----------------------------------------
+
   return 0;
 }
 
