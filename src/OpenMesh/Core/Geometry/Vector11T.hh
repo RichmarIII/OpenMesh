@@ -170,8 +170,9 @@ class VectorT {
         }
 
         /// construct from an array
-        explicit VectorT(container&& _array) {
-            values_ = _array;
+        explicit VectorT(container&& _array) :
+            values_(_array)
+        {
         }
 
         /// copy & cast constructor (explicit)
