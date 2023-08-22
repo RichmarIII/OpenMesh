@@ -147,7 +147,7 @@ check(unsigned int _targets, std::ostream& _os)
   {
     typename Mesh::ConstHalfedgeIter  h_it(mesh_.halfedges_begin()), 
         h_end(mesh_.halfedges_end());
-    typename Mesh::HalfedgeHandle     hh, hstart, hhh;
+    typename Mesh::HalfedgeHandle     hstart, hhh;
     size_t                            n_halfedges = 2*mesh_.n_edges();
 
     for (const auto hh: mesh_.halfedges())
@@ -217,7 +217,6 @@ check(unsigned int _targets, std::ostream& _os)
   {
     typename Mesh::ConstFaceIter          f_it(mesh_.faces_begin()), 
         f_end(mesh_.faces_end());
-    typename Mesh::FaceHandle             fh;
     typename Mesh::ConstFaceHalfedgeIter  fh_it;
 
     for(const auto fh: mesh_.faces()) {
