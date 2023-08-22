@@ -88,7 +88,7 @@ public:
 public:
    
   /// constructor
-  SubdivideWidget(QWidget* _parent=0, const char* _name=0);
+  explicit SubdivideWidget(QWidget* _parent=0, const char* _name=0);
 
   /// destructor
   ~SubdivideWidget() {};
