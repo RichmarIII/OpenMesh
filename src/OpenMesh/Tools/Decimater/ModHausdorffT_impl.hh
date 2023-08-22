@@ -267,8 +267,8 @@ void ModHausdorffT<MeshT>::set_error_tolerance_factor(double _factor) {
     // the smaller the factor, the smaller tolerance gets
     // thus creating a stricter constraint
     // division by error_tolerance_factor_ is for normalization
-    Scalar tolerance = tolerance_ * Scalar(_factor / this->error_tolerance_factor_);
-    set_tolerance(tolerance);
+    Scalar new_tolerance = tolerance_ * Scalar(_factor / this->error_tolerance_factor_);
+    set_tolerance(new_tolerance);
     this->error_tolerance_factor_ = _factor;
   }
 }
