@@ -166,12 +166,12 @@ bool _OMReader_::read_ascii(std::istream& /* _is */, BaseImporter& /* _bi */, Op
 
 bool _OMReader_::read_binary(std::istream& _is, BaseImporter& _bi, Options& _opt) const
 {
-  bool swap = _opt.check(Options::Swap) || (Endian::local() == Endian::MSB);
+  bool swap_required = _opt.check(Options::Swap) || (Endian::local() == Endian::MSB);
 
   // Initialize byte counter
   bytes_ = 0;
 
-  bytes_ += restore(_is, header_, swap);
+  bytes_ += restore(_is, header_, swap_required);
 
 
   if (header_.version_ > _OMWriter_::get_version())
@@ -183,7 +183,7 @@ bool _OMReader_::read_binary(std::istream& _is, BaseImporter& _bi, Options& _opt
   }
 
   while (!_is.eof()) {
-    bytes_ += restore(_is, chunk_header_, swap);
+    bytes_ += restore(_is, chunk_header_, swap_required);
 
     if (_is.eof())
       break;
@@ -191,30 +191,30 @@ bool _OMReader_::read_binary(std::istream& _is, BaseImporter& _bi, Options& _opt
     // Is this a named property restore the name
     if (chunk_header_.name_) {
       OMFormat::Chunk::PropertyName pn;
-      bytes_ += restore(_is, property_name_, swap);
+      bytes_ += restore(_is, property_name_, swap_required);
     }
 
     // Read in the property data. If it is an anonymous or unknown named
     // property, then skip data.
     switch (chunk_header_.entity_) {
       case OMFormat::Chunk::Entity_Vertex:
-        if (!read_binary_vertex_chunk(_is, _bi, _opt, swap))
+        if (!read_binary_vertex_chunk(_is, _bi, _opt, swap_required))
           return false;
         break;
       case OMFormat::Chunk::Entity_Face:
-        if (!read_binary_face_chunk(_is, _bi, _opt, swap))
+        if (!read_binary_face_chunk(_is, _bi, _opt, swap_required))
           return false;
         break;
       case OMFormat::Chunk::Entity_Edge:
-        if (!read_binary_edge_chunk(_is, _bi, _opt, swap))
+        if (!read_binary_edge_chunk(_is, _bi, _opt, swap_required))
           return false;
         break;
       case OMFormat::Chunk::Entity_Halfedge:
-        if (!read_binary_halfedge_chunk(_is, _bi, _opt, swap))
+        if (!read_binary_halfedge_chunk(_is, _bi, _opt, swap_required))
           return false;
         break;
       case OMFormat::Chunk::Entity_Mesh:
-        if (!read_binary_mesh_chunk(_is, _bi, _opt, swap))
+        if (!read_binary_mesh_chunk(_is, _bi, _opt, swap_required))
           return false;
         break;
       case OMFormat::Chunk::Entity_Sentinel:

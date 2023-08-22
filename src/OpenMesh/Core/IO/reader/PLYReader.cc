@@ -142,7 +142,7 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
     }
 
     // filter relevant options for reading
-    bool swap = _opt.check(Options::Swap);
+    bool swap_required = _opt.check(Options::Swap);
 
     userOptions_ = _opt;
 
@@ -178,7 +178,7 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
     //    if ( options_.is_binary() && userOptions_.color_has_alpha() )
     //      options_ += Options::ColorAlpha;
 
-    return (options_.is_binary() ? read_binary(_in, _bi, swap, _opt) : read_ascii(_in, _bi, _opt));
+    return (options_.is_binary() ? read_binary(_in, _bi, swap_required, _opt) : read_ascii(_in, _bi, _opt));
 
 }
 
