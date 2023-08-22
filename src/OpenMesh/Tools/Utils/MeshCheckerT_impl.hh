@@ -148,7 +148,7 @@ check(unsigned int _targets, std::ostream& _os)
     typename Mesh::ConstHalfedgeIter  h_it(mesh_.halfedges_begin()), 
         h_end(mesh_.halfedges_end());
     typename Mesh::HalfedgeHandle     hh, hstart, hhh;
-    size_t                            count, n_halfedges = 2*mesh_.n_edges();
+    size_t                            n_halfedges = 2*mesh_.n_edges();
 
     for (const auto hh: mesh_.halfedges())
     {
@@ -193,7 +193,7 @@ check(unsigned int _targets, std::ostream& _os)
 
 
       // halfedges should form a cycle
-      count=0; hstart=hhh=hh;
+      size_t count=0; hstart=hhh=hh;
       do
       {
         hhh = mesh_.next_halfedge_handle(hhh);
