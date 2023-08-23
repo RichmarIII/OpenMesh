@@ -119,7 +119,7 @@ public:
   VHierarchyNodeHandle add_node();
   VHierarchyNodeHandle add_node(const VHierarchyNode &_node);
 
-  void make_children(VHierarchyNodeHandle &_parent_handle);
+  void make_children(const VHierarchyNodeHandle &_parent_handle);
 
   bool is_ancestor(VHierarchyNodeIndex _ancestor_index, 
 		   VHierarchyNodeIndex _descendent_index);
