@@ -141,8 +141,8 @@ namespace OMFormat {
 
     size_t restore( std::istream& _is, bool _swap )
     {
-      if (_is.read( (char*)this, 4 ).eof())
-	return 0;
+      if (_is.read( reinterpret_cast<char*>(this) , 4 ).eof())
+        return 0;
 
       size_t bytes = 4;
       bytes += binary<uint32_t>::restore( _is, n_vertices_, _swap );
