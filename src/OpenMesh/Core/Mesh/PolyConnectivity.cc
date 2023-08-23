@@ -174,7 +174,7 @@ PolyConnectivity::add_face(const VertexHandle* _vertex_handles, size_t _vhs_size
         // search a free gap
         // free gap will be between boundary_prev and boundary_next
         outer_prev = opposite_halfedge_handle(inner_next);
-        outer_next = opposite_halfedge_handle(inner_prev);
+        //outer_next = opposite_halfedge_handle(inner_prev);
         boundary_prev = outer_prev;
         do
           boundary_prev =
