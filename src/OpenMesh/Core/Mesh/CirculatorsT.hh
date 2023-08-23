@@ -171,10 +171,10 @@ class GenericCirculator_ValueHandleFnsT {
             }
         }
 
-        inline static void increment(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+        inline static void increment(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
             GenericCirculator_CenterEntityFnsT<Mesh, CenterEntityHandle, CW>::increment(mesh, heh, start, lap_counter);
         }
-        inline static void decrement(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+        inline static void decrement(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
             GenericCirculator_CenterEntityFnsT<Mesh, CenterEntityHandle, CW>::decrement(mesh, heh, start, lap_counter);
         }
 };
@@ -426,10 +426,10 @@ class GenericCirculator_ValueHandleFnsT_DEPRECATED {
             return ( heh.is_valid() && ((start != heh) || (lap_counter == 0 )) );
         }
         inline static void init(const Mesh*, typename Mesh::HalfedgeHandle&, typename Mesh::HalfedgeHandle&, int&) {};
-        inline static void increment(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+        inline static void increment(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
             GenericCirculator_CenterEntityFnsT<Mesh, CenterEntityHandle, true>::increment(mesh, heh, start, lap_counter);
         }
-        inline static void decrement(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+        inline static void decrement(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
             GenericCirculator_CenterEntityFnsT<Mesh, CenterEntityHandle, true>::decrement(mesh, heh, start, lap_counter);
         }
 };
