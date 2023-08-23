@@ -442,16 +442,16 @@ class GenericCirculator_ValueHandleFnsT_DEPRECATED<Mesh, CenterEntityHandle, typ
         inline static bool is_valid(const typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, const int lap_counter) {
             return ( heh.is_valid() &&  ((start != heh) || (lap_counter == 0 )));
         }
-        inline static void init(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+        inline static void init(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
             if (heh.is_valid() && !GenericCirculator_DereferenciabilityCheck::isDereferenciable(mesh, heh) && lap_counter == 0 )
                 increment(mesh, heh, start, lap_counter);
         };
-        inline static void increment(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+        inline static void increment(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
             do {
                 GenericCirculator_CenterEntityFnsT<Mesh, CenterEntityHandle, true>::increment(mesh, heh, start, lap_counter);
             } while (is_valid(heh, start, lap_counter) && !GenericCirculator_DereferenciabilityCheck::isDereferenciable(mesh, heh));
         }
-        inline static void decrement(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+        inline static void decrement(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
             do {
                 GenericCirculator_CenterEntityFnsT<Mesh, CenterEntityHandle, true>::decrement(mesh, heh, start, lap_counter);
             } while (is_valid(heh, start, lap_counter) && !GenericCirculator_DereferenciabilityCheck::isDereferenciable(mesh, heh));
