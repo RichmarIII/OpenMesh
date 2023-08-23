@@ -154,9 +154,6 @@ public:
 
 private:
 
-  /// hide this method
-  void set_binary(bool _b) {}
-
   OpenMesh::VPropHandleT<level_t> level_;
 
   level_t max_level_; // maximum level reached
