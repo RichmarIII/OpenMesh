@@ -252,7 +252,7 @@ void _PLYWriter_::write_customProp(std::ostream& _out, const CustomProperty& _pr
 
 
 
-void _PLYWriter_::write_header(std::ostream& _out, const BaseExporter& _be, Options& _opt, std::vector<CustomProperty>& _ovProps, std::vector<CustomProperty>& _ofProps) const {
+void _PLYWriter_::write_header(std::ostream& _out, BaseExporter& _be, Options& _opt, std::vector<CustomProperty>& _ovProps, std::vector<CustomProperty>& _ofProps) const {
   //writing header
   _out << "ply" << '\n';
 
