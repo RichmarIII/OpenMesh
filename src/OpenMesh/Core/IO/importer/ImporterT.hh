@@ -121,14 +121,12 @@ public:
       VHandles::const_iterator it, it2, end(_indices.end());
 
 
-      // test for valid vertex indices
-      for (it=_indices.begin(); it!=end; ++it)
-        if (! mesh_.is_valid_handle(*it))
-        {
+      // Test if all vertex handles are valid. If not, we throw an error.
+      if ( std::any_of(_indices.begin(),_indices.end(),[this](const VertexHandle& vh){ return !mesh_.is_valid_handle(vh); } ) )
+      {
           omerr() << "ImporterT: Face contains invalid vertex index\n";
           return fh;
-        }
-
+      }
 
       // don't allow double vertices
       for (it=_indices.begin(); it!=end; ++it)

@@ -126,27 +126,27 @@ private:
 
   bool read_binary_vertex_chunk(   std::istream      &_is,
 				   BaseImporter      &_bi,
-				   Options           &_opt,
+                   const Options     &_opt,
 				   bool              _swap) const;
 
   bool read_binary_face_chunk(     std::istream      &_is,
 			           BaseImporter      &_bi,
-			           Options           &_opt,
+                   const Options         &_opt,
 				   bool              _swap) const;
 
   bool read_binary_edge_chunk(     std::istream      &_is,
 			           BaseImporter      &_bi,
-			           Options           &_opt,
+                   const Options           &_opt,
 				   bool              _swap) const;
 
   bool read_binary_halfedge_chunk( std::istream      &_is,
 				   BaseImporter      &_bi,
-				   Options           &_opt,
+                   const Options     &_opt,
 				   bool              _swap) const;
 
   bool read_binary_mesh_chunk(     std::istream      &_is,
 				   BaseImporter      &_bi,
-				   Options           &_opt,
+                   const Options     &_opt,
 				   bool              _swap) const;
 
   size_t restore_binary_custom_data(std::istream& _is,

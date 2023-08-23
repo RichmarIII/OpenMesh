@@ -98,10 +98,10 @@ public:
   size_t binary_size(BaseExporter&, const Options&) const override;
 
 private:
-  bool write_stla(const std::string&, BaseExporter&, Options) const;
-  bool write_stla(std::ostream&, BaseExporter&, Options, std::streamsize _precision = 6) const;
-  bool write_stlb(const std::string&, BaseExporter&, Options) const;
-  bool write_stlb(std::ostream&, BaseExporter&, Options, std::streamsize _precision = 6) const;
+  bool write_stla(const std::string&, const BaseExporter&, Options) const;
+  bool write_stla(std::ostream&, const BaseExporter&, Options, std::streamsize _precision = 6) const;
+  bool write_stlb(const std::string&, const BaseExporter&, Options) const;
+  bool write_stlb(std::ostream&, const BaseExporter&, Options, std::streamsize _precision = 6) const;
 };
 
 

@@ -139,7 +139,7 @@ write(std::ostream& _os, BaseExporter& _be, const Options& _writeOptions, std::s
 
 bool
 _STLWriter_::
-write_stla(const std::string& _filename, BaseExporter& _be, Options /* _opt */) const
+write_stla(const std::string& _filename, const BaseExporter& _be, Options /* _opt */) const
 {
   omlog() << "[STLWriter] : write ascii file\n";
 
@@ -204,7 +204,7 @@ write_stla(const std::string& _filename, BaseExporter& _be, Options /* _opt */) 
 
 bool
 _STLWriter_::
-write_stla(std::ostream& _out, BaseExporter& _be, Options /* _opt */, std::streamsize _precision) const
+write_stla(std::ostream& _out, const BaseExporter& _be, Options /* _opt */, std::streamsize _precision) const
 {
   omlog() << "[STLWriter] : write ascii file\n";
 
@@ -256,7 +256,7 @@ write_stla(std::ostream& _out, BaseExporter& _be, Options /* _opt */, std::strea
 
 bool
 _STLWriter_::
-write_stlb(const std::string& _filename, BaseExporter& _be, Options /* _opt */) const
+write_stlb(const std::string& _filename, const BaseExporter& _be, Options /* _opt */) const
 {
   omlog() << "[STLWriter] : write binary file\n";
 
@@ -336,7 +336,7 @@ write_stlb(const std::string& _filename, BaseExporter& _be, Options /* _opt */) 
 
 bool
 _STLWriter_::
-write_stlb(std::ostream& _out, BaseExporter& _be, Options /* _opt */, std::streamsize _precision) const
+write_stlb(std::ostream& _out, const BaseExporter& _be, Options /* _opt */, std::streamsize _precision) const
 {
   omlog() << "[STLWriter] : write binary file\n";
 

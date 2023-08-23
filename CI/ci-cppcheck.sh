@@ -1,4 +1,4 @@
-!/bin/bash
+#/bin/bash
 
 # Exit script on any error
 set -e 
@@ -32,7 +32,7 @@ echo "CPPCHECK Summary"
 echo "=============================================================================="
 echo -e "${NC}"
 
-MAX_COUNT=720
+MAX_COUNT=171
 
 if [ $COUNT -gt $MAX_COUNT ]; then
   echo -e ${WARNING}

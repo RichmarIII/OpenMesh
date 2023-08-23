@@ -142,7 +142,7 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
     }
 
     // filter relevant options for reading
-    bool swap = _opt.check(Options::Swap);
+    bool swap_required = _opt.check(Options::Swap);
 
     userOptions_ = _opt;
 
@@ -178,7 +178,7 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
     //    if ( options_.is_binary() && userOptions_.color_has_alpha() )
     //      options_ += Options::ColorAlpha;
 
-    return (options_.is_binary() ? read_binary(_in, _bi, swap, _opt) : read_ascii(_in, _bi, _opt));
+    return (options_.is_binary() ? read_binary(_in, _bi, swap_required, _opt) : read_ascii(_in, _bi, _opt));
 
 }
 
@@ -1384,8 +1384,7 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
 
         elements_.push_back(element);
       } else if (keyword == "property") {
-        std::string tmp1;
-        std::string tmp2;
+        std::string tmp1;        
 
         // Read first keyword, as it might be a list
         _is >> tmp1;
@@ -1448,6 +1447,9 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
           elements_.back().properties_.push_back(property);
 
         } else {
+
+          std::string tmp2;
+
           // as this is not a list property, read second value of property
           _is >> tmp2;
 

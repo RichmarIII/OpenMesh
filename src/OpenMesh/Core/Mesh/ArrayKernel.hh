@@ -738,7 +738,7 @@ public:
     typedef typename HandleContainer::const_iterator
                                             const_iterator;
   public:
-    ExtStatusSetT(ArrayKernel& _kernel, size_t _capacity_hint = 0)
+    explicit ExtStatusSetT(ArrayKernel& _kernel, size_t _capacity_hint = 0)
     : Base(_kernel)
     { handles_.reserve(_capacity_hint); }
 

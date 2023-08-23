@@ -190,20 +190,20 @@ SIMPLE_BINARY(unsigned long);
     static size_t store( std::ostream& _os, const value_type& _val, \
 		         bool _swap=false) {                                \
       value_type tmp = _val;                                    \
-      size_t i, b = size_of(_val), N = value_type::size_;       \
+      size_t b = size_of(_val), N = value_type::size_;          \
       if (_swap)                                                \
-        for (i=0; i<N; ++i)                                     \
+        for (size_t i=0; i<N; ++i)                              \
           reverse_byte_order( tmp[i] );                         \
       _os.write( (const char*)&tmp[0], b );                     \
       return _os.good() ? b : 0;                                \
     }                                                           \
                                                                 \
     static size_t restore( std::istream& _is, value_type& _val, \
-			 bool _swap=false) {                    \
-      size_t i, N=value_type::size_;                            \
+             bool _swap=false) {                                \
+      size_t N=value_type::size_;                               \
       size_t b = N * sizeof(value_type::value_type);            \
       _is.read( (char*)&_val[0], b );                           \
-      if (_swap) for (i=0; i<N; ++i)                            \
+      if (_swap) for (size_t i=0; i<N; ++i)                     \
         reverse_byte_order( _val[i] );                          \
       return _is.good() ? b : 0;                                \
     }                                                           \
