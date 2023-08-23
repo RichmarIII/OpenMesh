@@ -307,7 +307,7 @@ namespace OMFormat {
 
 
   /// Return the size of chunk data in bytes
-  inline size_t chunk_data_size( Header& _hdr,  Chunk::Header& _chunk_hdr )
+  inline size_t chunk_data_size( const Header& _hdr,  const Chunk::Header& _chunk_hdr )
   {
     size_t C;
     switch( _chunk_hdr.entity_ )
