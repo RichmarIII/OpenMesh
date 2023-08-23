@@ -79,7 +79,7 @@ class ModEdgeLengthT: public ModBaseT<MeshT> {
     ;
 
     /// Constructor
-    ModEdgeLengthT(MeshT& _mesh, float _edge_length = FLT_MAX,
+    explicit ModEdgeLengthT(MeshT& _mesh, float _edge_length = FLT_MAX,
         bool _is_binary = true);
 
     /// get edge_length
