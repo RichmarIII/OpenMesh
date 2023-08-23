@@ -54,7 +54,7 @@ using namespace OpenMesh;
 using namespace Smoother;
 
 
-struct MyTraits : public OpenMesh::DefaultTraits
+struct MySmoothingTraits : public OpenMesh::DefaultTraits
 {
 #if 1
   typedef OpenMesh::Vec3f Point;
@@ -65,7 +65,7 @@ struct MyTraits : public OpenMesh::DefaultTraits
 #endif
 };
 
-typedef OpenMesh::TriMesh_ArrayKernelT<MyTraits>  MyMesh;
+typedef OpenMesh::TriMesh_ArrayKernelT<MySmoothingTraits>  MyMesh;
 
 
 //-----------------------------------------------------------------------------
