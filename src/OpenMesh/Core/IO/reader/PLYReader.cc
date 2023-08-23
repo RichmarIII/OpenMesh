@@ -1384,8 +1384,7 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
 
         elements_.push_back(element);
       } else if (keyword == "property") {
-        std::string tmp1;
-        std::string tmp2;
+        std::string tmp1;        
 
         // Read first keyword, as it might be a list
         _is >> tmp1;
@@ -1448,6 +1447,9 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
           elements_.back().properties_.push_back(property);
 
         } else {
+
+          std::string tmp2;
+
           // as this is not a list property, read second value of property
           _is >> tmp2;
 
