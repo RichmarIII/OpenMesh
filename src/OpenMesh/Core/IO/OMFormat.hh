@@ -327,7 +327,7 @@ namespace OMFormat {
     return C * vector_size( _chunk_hdr );
   }
 
-  inline size_t chunk_size( Header& _hdr, Chunk::Header& _chunk_hdr )
+  inline size_t chunk_size( const Header& _hdr, const Chunk::Header& _chunk_hdr )
   {
     return chunk_header_size() + chunk_data_size( _hdr, _chunk_hdr );
   }
