@@ -104,7 +104,7 @@ public:
 public:
 
   /// Constructor
-  ModNormalDeviationT(MeshT& _mesh, float _max_dev = 180.0)
+  explicit ModNormalDeviationT(MeshT& _mesh, float _max_dev = 180.0)
   : Base(_mesh, true), mesh_(Base::mesh())
   {
     set_normal_deviation(_max_dev);

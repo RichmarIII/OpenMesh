@@ -183,11 +183,6 @@ public:
 
 private:
 
-  // hide this method
-  void set_binary(bool _b) {}
-
-private:
-
   // maximum normal deviation
   double max_deviation_, min_cos_;
 };

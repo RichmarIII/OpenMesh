@@ -86,10 +86,6 @@ class ModIndependentSetsT: public ModBaseT<MeshT> {
         Base::mesh().status(*vv_it).set_locked(true);
     }
 
-  private:
-
-    /// hide this method
-    void set_binary(bool _b) { }
 };
 
 //=============================================================================
