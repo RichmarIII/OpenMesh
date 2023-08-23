@@ -494,11 +494,8 @@ void PolyConnectivity::delete_vertex(VertexHandle _vh, bool _delete_isolated_ver
 
 
   // delete collected faces
-  std::vector<FaceHandle>::iterator fh_it(face_handles.begin()),
-                                    fh_end(face_handles.end());
-
-  for (; fh_it!=fh_end; ++fh_it)
-    delete_face(*fh_it, _delete_isolated_vertices);
+  for (auto delete_fh_it : face_handles)
+    delete_face(delete_fh_it, _delete_isolated_vertices);
 
   status(_vh).set_deleted(true);
 }
