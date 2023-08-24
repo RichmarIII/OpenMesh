@@ -39,6 +39,7 @@ unittests_stripifier.cc
 unittests_subdivider_adaptive.cc
 unittests_subdivider_uniform.cc
 unittests_trimesh_circulator_current_halfedge_handle_replacement.cc
+unittests_traits.cc
 unittests_trimesh_circulator_face_edge.cc
 unittests_trimesh_circulator_face_face.cc
 unittests_trimesh_circulator_face_halfedge.cc
