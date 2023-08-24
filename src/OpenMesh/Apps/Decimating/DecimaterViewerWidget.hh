@@ -84,13 +84,13 @@
 
 using namespace OpenMesh;
 
-struct MyTraits : public DEFAULT_TRAITS
+struct MyDecimaterViewerWidgetTraits : public DEFAULT_TRAITS
 {
   VertexAttributes  ( Attributes::Normal       );
   FaceAttributes    ( Attributes::Normal       );  
 };
 
-typedef TRIMESH_KERNEL<MyTraits>                     mesh_t;
+typedef TRIMESH_KERNEL<MyDecimaterViewerWidgetTraits>                     mesh_t;
 typedef MeshViewerWidgetT<mesh_t>                    MeshViewerWidgetDecimaterBase;
 
 //== CLASS DEFINITION =========================================================

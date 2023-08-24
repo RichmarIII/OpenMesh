@@ -429,7 +429,7 @@ typename PolyMeshT<Kernel>::Normal
 PolyMeshT<Kernel>::
 calc_normal(EdgeHandle _eh) const
 {
-  Normal n(0);
+  Normal n(0, 0, 0);
   for (int i = 0; i < 2; ++i)
   {
     const auto heh = this->halfedge_handle(_eh, i);

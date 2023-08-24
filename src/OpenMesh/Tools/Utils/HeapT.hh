@@ -146,8 +146,8 @@ public:
   HeapT() : HeapVector() {}
   
 #if (defined(_MSC_VER) && (_MSC_VER >= 1800)) || __cplusplus > 199711L || defined(__GXX_EXPERIMENTAL_CXX0X__)
-  /// Construct with a given \c HeapIterface. 
-  HeapT(HeapInterface _interface)
+  /// Construct with a given \c HeapIterface.
+  explicit HeapT(HeapInterface _interface)
   : HeapVector(),  interface_(std::move(_interface))
   {}
 #else

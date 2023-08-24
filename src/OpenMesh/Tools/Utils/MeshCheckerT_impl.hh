@@ -95,7 +95,7 @@ check(unsigned int _targets, std::ostream& _os)
           }
         }
         if (heh.is_valid()) {
-            if (heh.idx() < -1 || heh.idx() >= mesh_.n_halfedges()) {
+          if (heh.idx() < -1 || heh.idx() >= (int)mesh_.n_halfedges()) {
               _os << "MeshChecker: vertex " << vh
                   << " has out-of-bounds outgoing HE: " << heh;
               ok = false;
@@ -147,8 +147,8 @@ check(unsigned int _targets, std::ostream& _os)
   {
     typename Mesh::ConstHalfedgeIter  h_it(mesh_.halfedges_begin()), 
         h_end(mesh_.halfedges_end());
-    typename Mesh::HalfedgeHandle     hh, hstart, hhh;
-    size_t                            count, n_halfedges = 2*mesh_.n_edges();
+    typename Mesh::HalfedgeHandle     hstart, hhh;
+    size_t                            n_halfedges = 2*mesh_.n_edges();
 
     for (const auto hh: mesh_.halfedges())
     {
@@ -193,7 +193,7 @@ check(unsigned int _targets, std::ostream& _os)
 
 
       // halfedges should form a cycle
-      count=0; hstart=hhh=hh;
+      size_t count=0; hstart=hhh=hh;
       do
       {
         hhh = mesh_.next_halfedge_handle(hhh);
@@ -217,7 +217,6 @@ check(unsigned int _targets, std::ostream& _os)
   {
     typename Mesh::ConstFaceIter          f_it(mesh_.faces_begin()), 
         f_end(mesh_.faces_end());
-    typename Mesh::FaceHandle             fh;
     typename Mesh::ConstFaceHalfedgeIter  fh_it;
 
     for(const auto fh: mesh_.faces()) {

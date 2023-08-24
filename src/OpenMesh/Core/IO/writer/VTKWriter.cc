@@ -40,8 +40,6 @@ bool _VTKWriter_::write(const std::string& _filename, BaseExporter& _be, const O
 
 bool _VTKWriter_::write(std::ostream& _out, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
-    VertexHandle vh;
-
     // check exporter features
     if (!check(_be, _writeOptions)) {
         return false;

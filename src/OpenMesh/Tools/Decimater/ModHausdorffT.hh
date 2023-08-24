@@ -87,7 +87,7 @@ class ModHausdorffT: public ModBaseT<MeshT> {
     typedef std::vector<Point> Points;
 
     /// Constructor
-    ModHausdorffT(MeshT& _mesh, Scalar _error_tolerance = FLT_MAX) :
+    explicit ModHausdorffT(MeshT& _mesh, Scalar _error_tolerance = FLT_MAX) :
         Base(_mesh, true), mesh_(Base::mesh()), tolerance_(_error_tolerance) {
       mesh_.add_property(points_);
     }

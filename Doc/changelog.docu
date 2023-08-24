@@ -16,6 +16,7 @@
 
 <b>Core</b>
 <ul>
+<li>legacy vector min max now take const args to avoid matching std implementations</li>
 <li>Fixed several warnings</li>
 <li>Make Previous Halfedge Attribute optional again </li>
 </ul>
