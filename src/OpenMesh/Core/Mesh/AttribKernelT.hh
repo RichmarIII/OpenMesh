@@ -75,10 +75,30 @@ public:
 
   //---------------------------------------------------------------- item types
 
+  enum Attribs  {
+    VAttribs = MeshItems::VAttribs,
+    HAttribs = MeshItems::HAttribs,
+    EAttribs = MeshItems::EAttribs,
+    FAttribs = MeshItems::FAttribs
+  };
+
   typedef MeshItems MeshItemsT;
   typedef Connectivity ConnectivityT;
   typedef typename Connectivity::Vertex     Vertex;
-  typedef typename Connectivity::Halfedge   Halfedge;
+
+  //Define Halfedge based on PrevHalfedge.
+  typedef typename GenProg::IF<
+    (bool)(HAttribs & Attributes::PrevHalfedge),
+    typename Connectivity::Halfedge,
+    typename Connectivity::HalfedgeNoPrev
+  >::Result   Halfedge;
+  typedef typename GenProg::IF<
+    (bool)(HAttribs & Attributes::PrevHalfedge),
+    GenProg::Bool2Type<true>,
+    GenProg::Bool2Type<false>         
+  >::Result   HasPrevHalfedge;
+  
+  //typedef typename Connectivity::Halfedge   Halfedge;
   typedef typename Connectivity::Edge       Edge;
   typedef typename Connectivity::Face       Face;
 
@@ -98,12 +118,6 @@ public:
 
   typedef AttribKernelT<MeshItems,Connectivity>  AttribKernel;
 
-  enum Attribs  {
-    VAttribs = MeshItems::VAttribs,
-    HAttribs = MeshItems::HAttribs,
-    EAttribs = MeshItems::EAttribs,
-    FAttribs = MeshItems::FAttribs
-  };
 
   typedef VPropHandleT<VertexData>          DataVPropHandle;
   typedef HPropHandleT<HalfedgeData>        DataHPropHandle;

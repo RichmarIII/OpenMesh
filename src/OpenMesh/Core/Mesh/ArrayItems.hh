@@ -97,6 +97,7 @@ struct ArrayItems
 
   //TODO: should be selected with config.h define
   typedef Halfedge_with_prev                Halfedge;
+  typedef Halfedge_without_prev             HalfedgeNoPrev;
   typedef GenProg::Bool2Type<true>          HasPrevHalfedge;
 
   //-------------------------------------------------------- internal edge type
