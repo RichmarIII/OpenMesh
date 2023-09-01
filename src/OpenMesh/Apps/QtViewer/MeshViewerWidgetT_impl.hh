@@ -188,7 +188,10 @@ MeshViewerWidgetT<M>::open_mesh(const char* _filename, IO::Options _opt)
     updateGL();
 #endif
 
-    setWindowTitle(QFileInfo(_filename).fileName());
+    if ( this->parentWidget() != nullptr )
+        this->parentWidget()->setWindowTitle(QFileInfo(_filename).fileName());
+    else
+        setWindowTitle(QFileInfo(_filename).fileName());
 
     // loading done
     return true;
