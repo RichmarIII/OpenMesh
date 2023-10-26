@@ -145,7 +145,17 @@ private:
 
   /// Read unsupported properties in PLY file
   void consume_input(std::istream& _in, int _count) const {
-	  _in.read(reinterpret_cast<char*>(&buff[0]), _count);
+
+      // Make sure, we do not run over our buffer size
+      int loops = _count / 8 ;
+
+      // Read only our buffer size batches
+      for ( auto i = 0 ; i < loops; ++i) {
+          _in.read(reinterpret_cast<char*>(&buff[0]), 8);
+      }
+
+      // Read reminder which is smaller than our buffer size
+      _in.read(reinterpret_cast<char*>(&buff[0]), _count - 8 * loops );
   }
 
   mutable unsigned char buff[8];
