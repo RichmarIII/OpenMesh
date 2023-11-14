@@ -44,7 +44,7 @@
 
 //=============================================================================
 //
-//  Vertex and Face circulators for PolyMesh/TriMesh
+//  Vertex, Face, and Edge circulators for PolyMesh/TriMesh
 //
 //=============================================================================
 
@@ -98,6 +98,19 @@ class GenericCirculator_CenterEntityFnsT<Mesh, typename Mesh::FaceHandle, true> 
         }
 };
 
+template<class Mesh, bool CW>
+class GenericCirculator_CenterEntityFnsT<Mesh, typename Mesh::EdgeHandle, CW> {
+    public:
+        inline static void increment(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+            heh = mesh->opposite_halfedge_handle(heh);
+            if (heh == start) ++lap_counter;
+        }
+        inline static void decrement(const Mesh *mesh, typename Mesh::HalfedgeHandle &heh, const typename Mesh::HalfedgeHandle &start, int &lap_counter) {
+            if (heh == start) --lap_counter;
+            heh = mesh->opposite_halfedge_handle(heh);
+        }
+};
+
 /////////////////////////////////////////////////////////////
 // CCW
 
@@ -144,6 +157,14 @@ class GenericCirculator_DereferenciabilityCheckT<Mesh, typename Mesh::FaceHandle
 
 template<class Mesh>
 class GenericCirculator_DereferenciabilityCheckT<Mesh, typename Mesh::VertexHandle, typename Mesh::FaceHandle> {
+    public:
+        inline static bool isDereferenciable(const Mesh *mesh, const typename Mesh::HalfedgeHandle &heh) {
+            return mesh->face_handle(heh).is_valid();
+        }
+};
+
+template<class Mesh>
+class GenericCirculator_DereferenciabilityCheckT<Mesh, typename Mesh::EdgeHandle, typename Mesh::FaceHandle> {
     public:
         inline static bool isDereferenciable(const Mesh *mesh, const typename Mesh::HalfedgeHandle &heh) {
             return mesh->face_handle(heh).is_valid();

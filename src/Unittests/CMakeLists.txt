@@ -38,8 +38,11 @@ unittests_sr_binary.cc
 unittests_stripifier.cc
 unittests_subdivider_adaptive.cc
 unittests_subdivider_uniform.cc
-unittests_trimesh_circulator_current_halfedge_handle_replacement.cc
 unittests_traits.cc
+unittests_trimesh_circulator_current_halfedge_handle_replacement.cc
+unittests_trimesh_circulator_edge_face.cc
+unittests_trimesh_circulator_edge_halfedge.cc
+unittests_trimesh_circulator_edge_vertex.cc
 unittests_trimesh_circulator_face_edge.cc
 unittests_trimesh_circulator_face_face.cc
 unittests_trimesh_circulator_face_halfedge.cc
@@ -53,6 +56,7 @@ unittests_trimesh_circulator_vertex_vertex.cc
 unittests_trimesh_collapse.cc
 unittests_trimesh_garbage_collection.cc
 unittests_trimesh_iterators.cc
+unittests_trimesh_navigation.cc
 unittests_trimesh_others.cc
 unittests_trimesh_ranges.cc
 unittests_trimesh_split.cc
