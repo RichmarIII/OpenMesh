@@ -471,7 +471,7 @@ public:
   { return next_halfedge_handle(opposite_halfedge_handle(_heh)); }
 
   // --- edge connectivity ---
-  static HalfedgeHandle s_halfedge_handle(EdgeHandle _eh, unsigned int _i)
+  static HalfedgeHandle s_halfedge_handle(EdgeHandle _eh, unsigned int _i = 0)
   {
     assert(_i<=1);
     return HalfedgeHandle((_eh.idx() << 1) + _i);
@@ -480,7 +480,7 @@ public:
   static EdgeHandle s_edge_handle(HalfedgeHandle _heh)
   { return EdgeHandle(_heh.idx() >> 1); }
 
-  HalfedgeHandle halfedge_handle(EdgeHandle _eh, unsigned int _i) const
+  HalfedgeHandle halfedge_handle(EdgeHandle _eh, unsigned int _i = 0) const
   {
       return s_halfedge_handle(_eh, _i);
   }
