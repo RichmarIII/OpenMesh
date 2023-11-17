@@ -504,7 +504,8 @@ namespace OMFormat {
   size_t
   store( std::ostream& _os, const OMFormat::Chunk::Header& _hdr, bool _swap)
   {
-    OMFormat::uint16 val; val << _hdr;
+    OMFormat::uint16 val;
+    val << _hdr;
     return binary<uint16_t>::store( _os, val, _swap );
   }
 

@@ -6,6 +6,17 @@
 
 <!-- --------------------------------------------------------------------- -->
 
+<tr valign=top><td><b>11.0</b> (2023/11/14)</td><td>
+
+<b>Documentation</b>
+<ul>
+<li>Update Doxygen config format</li>
+</ul>
+
+
+</tr>
+
+
 <tr valign=top><td><b>10.0</b> (2023/11/14)</td><td>
 
 <b>Breaking Changes</b>
