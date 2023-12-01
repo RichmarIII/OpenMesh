@@ -110,8 +110,8 @@ private:
 
   bool supports( const OMFormat::uint8 version ) const;
 
-  bool read_ascii(std::istream& _is, BaseImporter& _bi, Options& _opt) const;
-  bool read_binary(std::istream& _is, BaseImporter& _bi, Options& _opt) const;
+  bool read_ascii(std::istream& _is, BaseImporter& _bi, const Options& _opt) const;
+  bool read_binary(std::istream& _is, BaseImporter& _bi, const Options& _opt) const;
 
   typedef OMFormat::Header              Header;
   typedef OMFormat::Chunk::Header       ChunkHeader;

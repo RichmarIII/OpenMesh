@@ -13,6 +13,10 @@
 <li>Update Doxygen config format</li>
 </ul>
 
+<b>Build System</b>
+<ul>
+<li>GTest is now automatically fetched via official git repository and build when unittests have been enabled</li>
+</ul>
 
 </tr>
 
