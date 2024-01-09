@@ -250,7 +250,7 @@ public: // inherited from BaseProperty
   virtual void reserve(size_t _n) override { data_.reserve(_n);    }
   virtual void resize(size_t _n) override  { data_.resize(_n);     }
   virtual void clear() override  { data_.clear(); vector_type().swap(data_);    }
-  virtual void push_back() override        { data_.emplace_back(); }
+  virtual void push_back() override        { data_.push_back(); }
   virtual void swap(size_t _i0, size_t _i1) override
   { bool t(data_[_i0]); data_[_i0]=data_[_i1]; data_[_i1]=t; }
   virtual void copy(size_t _i0, size_t _i1) override
