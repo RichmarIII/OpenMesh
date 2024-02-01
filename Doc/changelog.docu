@@ -6,11 +6,16 @@
 
 <!-- --------------------------------------------------------------------- -->
 
-<tr valign=top><td><b>11.0</b> (2023/11/14)</td><td>
+<tr valign=top><td><b>11.0</b> (?/?/?)</td><td>
 
 <b>Documentation</b>
 <ul>
 <li>Update Doxygen config format</li>
+</ul>
+
+<b>IO</b>
+<ul>
+<li>PLY reader/writer: Fixed color trait Vec3f compilation for PLY writer</li>
 </ul>
 
 <b>Build System</b>
