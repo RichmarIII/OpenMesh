@@ -73,14 +73,16 @@ endif()
 if (OPENMESH_BUILD_UNIT_TESTS)
   # Fetch Gtest from github
   include(FetchContent)
+
   FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG f8d7d77c06936315286eb55f8de22cd23c188571 # v1.14.0
-    #FIND_PACKAGE_ARGS NAMES GTest
+    GIT_TAG        release-1.10.0
   )
-  # For Windows: Prevent overriding the parent project's compiler/linker settings
-  set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+  if(WIN32)
+      # avoid linking errors, cf https://stackoverflow.com/questions/12540970/how-to-make-gtest-build-mdd-instead-of-mtd-by-default-using-cmake
+      set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+  endif()
   FetchContent_MakeAvailable(googletest)
 
   enable_testing()
