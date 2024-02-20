@@ -11,6 +11,7 @@ set(UNITTEST_SRC
   unittests_delete_face.cc
   unittests_eigen3_type.cc
   unittests_faceless_mesh.cc
+  unittests_holefiller.cc
   unittests_mc_decimater.cc
   unittests_mesh_cast.cc
   unittests_mesh_dual.cc

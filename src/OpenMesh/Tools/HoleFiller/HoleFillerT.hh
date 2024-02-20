@@ -1,13 +1,13 @@
-/*===========================================================================*\
-*                                                                            *
-*                              OpenFlipper                                   *
- *           Copyright (c) 2001-2015, RWTH-Aachen University                 *
+/* ========================================================================= *
+ *                                                                           *
+ *                               OpenMesh                                    *
+ *           Copyright (c) 2001-2023, RWTH-Aachen University                 *
  *           Department of Computer Graphics and Multimedia                  *
  *                          All rights reserved.                             *
- *                            www.openflipper.org                            *
+ *                            www.openmesh.org                               *
  *                                                                           *
  *---------------------------------------------------------------------------*
- * This file is part of OpenFlipper.                                         *
+ * This file is part of OpenMesh.                                            *
  *---------------------------------------------------------------------------*
  *                                                                           *
  * Redistribution and use in source and binary forms, with or without        *
@@ -36,60 +36,29 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING      *
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS        *
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.              *
-*                                                                            *
-\*===========================================================================*/
+ *                                                                           *
+ * ========================================================================= */
 
 #pragma once
 
 #include <vector>
-#include <float.h>
-#include <cmath>
-#include <OpenMesh/Core/Utils/vector_cast.hh>
-#include "OpenMeshUtils.hh"
-#include <OpenMesh/Tools/Smoother/JacobiLaplaceSmootherT.hh>
 #include <OpenMesh/Core/Mesh/PolyConnectivity.hh>
 
 //=============================================================================
 
-template< class TheMesh >
+namespace OpenMesh {
+namespace HoleFiller {
+
+template< class MeshT >
 class HoleFiller
 {
+    typedef typename MeshT::Point         Point;
+    typedef typename MeshT::Scalar        Scalar;
+
 public:
-  typedef TheMesh Mesh;
-
-  import_om_abbreviations( typename Mesh );
-  
-  // A weight is a tuple of area and maximum dihedral angle
-  //
-
-  class Weight {
-  public:
-    
-    Weight() : angle_( 180 ), area_( FLT_MAX ) {}
-    Weight( Scalar _angle, Scalar _area ) : angle_( _angle ), area_( _area ) {}
-    ~Weight() {}
-
-    Scalar angle() const { return angle_; }
-    Scalar area()  const { return area_; }
-
-    Weight operator+( const Weight & _other ) const {
-      return Weight( std::max( angle(), _other.angle() ),
-		     area() + _other.area() );
-    }
-
-    bool operator<( const Weight & _rhs ) const {
-      return ( angle() < _rhs.angle() ||
-	       ( angle() == _rhs.angle() && area() < _rhs.area() ) );
-    }
-
-  private:
-    Scalar angle_;
-    Scalar area_;
-  };
-
 
   // Ctors
-  explicit HoleFiller( Mesh & _mesh );
+  explicit HoleFiller( MeshT & _mesh );
   ~HoleFiller();
 
   // Identify and fill all holes of the mesh.
@@ -97,19 +66,48 @@ public:
 
 
   // Fill a hole which is identified by one of its boundary edges.
-  void fill_hole( EH _eh, int _stages = 3 );
+  void fill_hole( typename MeshT::EdgeHandle _eh, int _stages = 3 );
 
   // Fair a filling
   //void fairing( std::vector< FH >& _faceHandles );
   void fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHandles );
 
   // Remove degenerated faces from the filling
-  void removeDegeneratedFaces( std::vector< FH >& _faceHandles );
+  void removeDegeneratedFaces( std::vector< typename MeshT::FaceHandle >& _faceHandles );
 
 private:
 
-  // Refine a face
-  bool refine( FH _fh );
+
+    // A weight is a tuple of area and maximum dihedral angle
+    //
+
+    class Weight {
+    public:
+
+        Weight() : angle_( 180 ), area_( FLT_MAX ) {}
+        Weight( Scalar _angle, Scalar _area ) : angle_( _angle ), area_( _area ) {}
+        ~Weight() {}
+
+        Scalar angle() const { return angle_; }
+        Scalar area()  const { return area_; }
+
+        Weight operator+( const Weight & _other ) const {
+            return Weight( std::max( angle(), _other.angle() ),
+                          area() + _other.area() );
+        }
+
+        bool operator<( const Weight & _rhs ) const {
+            return ( angle() < _rhs.angle() ||
+                    ( angle() == _rhs.angle() && area() < _rhs.area() ) );
+        }
+
+    private:
+        Scalar angle_;
+        Scalar area_;
+    };
+
+    // Refine a face
+    bool refine( typename MeshT::FaceHandle _fh );
 
   // Relax an edge
   bool relax_edge( OpenMesh::SmartEdgeHandle _eh );
@@ -127,20 +125,20 @@ private:
   Weight weight( int _i, int _j, int _k );
 
   // Does edge (_u,_v) already exist?
-  bool exists_edge( OpenMesh::SmartVertexHandle _u, VH _w );
+  bool exists_edge( OpenMesh::SmartVertexHandle _u, typename MeshT::VertexHandle _w );
 
   // Compute the area of the triangle (_a,_b,_c).
-  Scalar area( VH _a, VH _b, VH _c );
+  Scalar area( typename MeshT::VertexHandle _a, typename MeshT::VertexHandle _b, typename MeshT::VertexHandle _c );
 
   // Compute the dihedral angle (in degrees) between triangle
   // (_u,_v,_a) and triangle (_v,_u,_b).
-  Scalar dihedral_angle( VH _u, VH _v, VH _a, VH _b );
+  Scalar dihedral_angle( typename MeshT::VertexHandle _u, typename MeshT::VertexHandle _v, typename MeshT::VertexHandle _a, typename MeshT::VertexHandle _b );
 
 
   // The mesh, with each vertex we associate a scale factor that is
   // needed for remeshing
 
-  Mesh & mesh_;  
+  MeshT & mesh_;
   OpenMesh::VPropHandleT< Scalar > scale_;
 
   /*
@@ -157,13 +155,13 @@ private:
   */
 
 
-  typedef std::vector< VH >                 VHVec;
-  typedef typename std::vector< VH >::iterator       VHVecIter;
-  typedef typename std::vector< VH >::const_iterator CVHVecIter;
+  typedef std::vector< typename MeshT::VertexHandle >                 VHVec;
+  typedef typename std::vector< typename MeshT::VertexHandle >::iterator       VHVecIter;
+  typedef typename std::vector< typename MeshT::VertexHandle >::const_iterator CVHVecIter;
 
-  typedef std::vector< FH >                 FHVec;
-  typedef typename std::vector< FH >::iterator       FHVecIter;
-  typedef typename std::vector< FH >::const_iterator CFHVecIter;
+  typedef std::vector< typename MeshT::FaceHandle >                 FHVec;
+  typedef typename std::vector< typename MeshT::FaceHandle >::iterator       FHVecIter;
+  typedef typename std::vector< typename MeshT::FaceHandle >::const_iterator CFHVecIter;
 
 
   // This vector contains all vertices of the hole (in order)
@@ -192,9 +190,13 @@ private:
   std::vector< std::vector< int    > > l_;
 };
 
+} // namespace HoleFiller
+} // namespace OpenMesh
+
 //=============================================================================
 #ifndef HOLEFILLER_CC
   #include "HoleFillerT_impl.hh"
 #endif
 //=============================================================================
+
 

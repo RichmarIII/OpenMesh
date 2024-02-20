@@ -1,13 +1,13 @@
-/*===========================================================================*\
-*                                                                            *
-*                              OpenFlipper                                   *
- *           Copyright (c) 2001-2015, RWTH-Aachen University                 *
+/* ========================================================================= *
+ *                                                                           *
+ *                               OpenMesh                                    *
+ *           Copyright (c) 2001-2023, RWTH-Aachen University                 *
  *           Department of Computer Graphics and Multimedia                  *
  *                          All rights reserved.                             *
- *                            www.openflipper.org                            *
+ *                            www.openmesh.org                               *
  *                                                                           *
  *---------------------------------------------------------------------------*
- * This file is part of OpenFlipper.                                         *
+ * This file is part of OpenMesh.                                            *
  *---------------------------------------------------------------------------*
  *                                                                           *
  * Redistribution and use in source and binary forms, with or without        *
@@ -36,17 +36,24 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING      *
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS        *
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.              *
-*                                                                            *
-\*===========================================================================*/
+ *                                                                           *
+ * ========================================================================= */
 
 
 
 //=============================================================================
 #include "HoleFillerT.hh"
+#include <OpenMesh/Tools/Smoother/JacobiLaplaceSmootherT.hh>
 //=============================================================================
 
+//== NAMESPACES ===============================================================
+
+
+namespace OpenMesh {
+namespace HoleFiller {
+
 template< class MeshT >
-HoleFiller< MeshT >::HoleFiller( Mesh & _mesh )
+HoleFiller< MeshT >::HoleFiller(MeshT &_mesh )
   : mesh_( _mesh )
 {
   mesh_.request_vertex_status();
@@ -85,7 +92,7 @@ HoleFiller< MeshT >::fill_all_holes( int _stages )
 {
   // Collect all boundary edges
   
-  std::vector< EH > bdry_edge;
+  std::vector< typename MeshT::EdgeHandle > bdry_edge;
   
   for (auto ei : mesh_.edges())
     if ( ei.is_boundary() )
@@ -110,10 +117,10 @@ HoleFiller< MeshT >::fill_all_holes( int _stages )
 
   std::cerr << "Stage 3 : Smoothing the hole fillings ... ";
   
-  OpenMesh::Smoother::JacobiLaplaceSmootherT< Mesh > smoother( mesh_ );
-  smoother.initialize( OpenMesh::Smoother::SmootherT< Mesh >::
+  OpenMesh::Smoother::JacobiLaplaceSmootherT< MeshT > smoother( mesh_ );
+  smoother.initialize( OpenMesh::Smoother::SmootherT< MeshT >::
 		       Tangential_and_Normal,
-		       OpenMesh::Smoother::SmootherT< Mesh >::C1 );
+               OpenMesh::Smoother::SmootherT< MeshT >::C1 );
   
   smoother.smooth( 500 );
   std::cerr << "ok\n";
@@ -129,7 +136,7 @@ HoleFiller< MeshT >::fill_all_holes( int _stages )
 
 template< class MeshT >
 void
-HoleFiller< MeshT >::fill_hole( EH _eh, int _stages )
+HoleFiller< MeshT >::fill_hole(typename MeshT::EdgeHandle _eh, int _stages )
 {
   std::cerr << "  Stage 1 : Computing a minimal triangulation ... ";
 
@@ -331,7 +338,7 @@ HoleFiller< MeshT >::fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHan
         cnt += 1.0f;
         Point p0 = mesh_.point( vIt );
         Point p1 = mesh_.point( voh_it.to() );
-        scale += ( p1 - p0 ).norm();
+        scale += norm( p1 - p0 );
 
       }
 
@@ -378,12 +385,12 @@ HoleFiller< MeshT >::fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHan
 
 template< class MeshT >
 bool
-HoleFiller< MeshT >::refine( FH _fh )
+HoleFiller< MeshT >::refine(typename MeshT::FaceHandle _fh )
 {
  
   // Collect the three edges of the face into e0, e1, e2
 
-  FEI fei = mesh_.fe_iter( _fh );
+  typename MeshT::FEIter fei = mesh_.fe_iter( _fh );
   OpenMesh::SmartEdgeHandle  e0  = *fei; ++fei;
   OpenMesh::SmartEdgeHandle  e1  = *fei; ++fei;
   OpenMesh::SmartEdgeHandle  e2  = *fei; ++fei;
@@ -391,11 +398,11 @@ HoleFiller< MeshT >::refine( FH _fh )
 
   // Collect the vertices, vertex positions and scale factors of the face.
 
-  FVI   fvi = mesh_.fv_iter( _fh );
+  typename MeshT::FVIter   fvi = mesh_.fv_iter( _fh );
 
-  VH    v0 = *fvi; ++fvi;
-  VH    v1 = *fvi; ++fvi;
-  VH    v2 = *fvi; ++fvi;
+  typename MeshT::VertexHandle    v0 = *fvi; ++fvi;
+  typename MeshT::VertexHandle    v1 = *fvi; ++fvi;
+  typename MeshT::VertexHandle    v2 = *fvi; ++fvi;
 
   Point p0 = mesh_.point( v0 );
   Point p1 = mesh_.point( v1 );
@@ -410,9 +417,9 @@ HoleFiller< MeshT >::refine( FH _fh )
   Scalar scale = ( scale0 + scale1 + scale2 ) / 3.0f;
   Point center = typename MeshT::Scalar(1.0/3.0) * ( p0 + p1 + p2 );
 
-  Scalar d0 = 1.0f * ( p0 - center ).norm();
-  Scalar d1 = 1.0f * ( p1 - center ).norm();
-  Scalar d2 = 1.0f * ( p2 - center ).norm();
+  Scalar d0 = 1.0f * norm( p0 - center );
+  Scalar d1 = 1.0f * norm( p1 - center );
+  Scalar d2 = 1.0f * norm( p2 - center );
 
 
   //dont split triangles which tend to degenerate
@@ -520,15 +527,15 @@ HoleFiller< MeshT >::in_circumsphere( const Point & _x,
   Point ab = _b - _a;
   Point ac = _c - _a;
 
-  Scalar a00 = -2.0f * ( ab | _a );
-  Scalar a01 = -2.0f * ( ab | _b );
-  Scalar a02 = -2.0f * ( ab | _c );
-  Scalar b0 = _a.sqrnorm() - _b.sqrnorm();
+  Scalar a00 = -2.0f * ( dot(ab , _a ) );
+  Scalar a01 = -2.0f * ( dot(ab , _b ) );
+  Scalar a02 = -2.0f * ( dot(ab , _c ) );
+  Scalar b0 = norm(_a)*norm(_a) - norm(_b)*norm(_b);
 
-  Scalar a10 = -2.0f * ( ac | _a );
-  Scalar a11 = -2.0f * ( ac | _b );
-  Scalar a12 = -2.0f * ( ac | _c );
-  Scalar b1 = _a.sqrnorm() - _c.sqrnorm();
+  Scalar a10 = -2.0f * ( dot(ac , _a ) );
+  Scalar a11 = -2.0f * ( dot(ac , _b ) );
+  Scalar a12 = -2.0f * ( dot(ac , _c ) );
+  Scalar b1 = norm(_a)*norm(_a) - norm(_c)*norm(_c);
 
   typename MeshT::Scalar alpha = -(-a11*a02+a01*a12-a12*b0+b1*a02+a11*b0-a01*b1)
 	                             / (-a11*a00+a11*a02-a10*a02+a00*a12+a01*a10-a01*a12);
@@ -539,7 +546,7 @@ HoleFiller< MeshT >::in_circumsphere( const Point & _x,
 
   Point center = alpha * _a + beta * _b + gamma * _c;
 
-  return ( _x - center ).sqrnorm() < ( _a - center ).sqrnorm();
+  return norm( _x - center ) * norm( _x - center ) < norm( _a - center ) * norm( _a - center );
 }
 
 
@@ -669,7 +676,7 @@ HoleFiller< MeshT >::weight( int _i, int _j, int _k )
 
 template< class MeshT >			
 bool
-HoleFiller< MeshT >::exists_edge( OpenMesh::SmartVertexHandle _u, VH _w )
+HoleFiller< MeshT >::exists_edge( OpenMesh::SmartVertexHandle _u, typename MeshT::VertexHandle _w )
 {
   for ( auto vohi : _u.outgoing_halfedges() )
     if ( ! vohi.edge().is_boundary() )
@@ -690,15 +697,15 @@ HoleFiller< MeshT >::exists_edge( OpenMesh::SmartVertexHandle _u, VH _w )
 
 template< class MeshT >			
 typename MeshT::Scalar
-HoleFiller< MeshT >::area( VH _a, VH _b, VH _c )
+HoleFiller< MeshT >::area( typename MeshT::VertexHandle _a, typename MeshT::VertexHandle _b, typename MeshT::VertexHandle _c )
 {
   Point a( mesh_.point( _a ) );
   Point b( mesh_.point( _b ) );
   Point c( mesh_.point( _c ) );
 
-  Point n( ( b - a ) % ( c - b ) );
+  Point n( cross(( b - a ) , ( c - b )) );
 
-  return 0.5 * n.norm();
+  return 0.5 * norm(n);
 }
 
 
@@ -715,27 +722,27 @@ HoleFiller< MeshT >::area( VH _a, VH _b, VH _c )
 
 template< class MeshT >			
 typename MeshT::Scalar
-HoleFiller< MeshT >::dihedral_angle( VH _u, VH _v, VH _a, VH _b )
+HoleFiller< MeshT >::dihedral_angle( typename MeshT::VertexHandle _u, typename MeshT::VertexHandle _v, typename MeshT::VertexHandle _a, typename MeshT::VertexHandle _b )
 {
   Point u( mesh_.point( _u ) );
   Point v( mesh_.point( _v ) );
   Point a( mesh_.point( _a ) );
   Point b( mesh_.point( _b ) );
+
+  Point n0( cross(( v - u ) , ( a - v )) );
+  Point n1( cross(( u - v ) , ( b - u )) );
     
-  Point n0( ( v - u ) % ( a - v ) );
-  Point n1( ( u - v ) % ( b - u ) );
-    
-  n0.normalize();
-  n1.normalize();
-    
-  return acos( n0 | n1 ) * 180.0 / M_PI;
+  normalize(n0);
+  normalize(n1);
+
+  return acos( dot(n0,n1) ) * 180.0 / M_PI;
 }
 
 
 /// remove degenerated faces
 template< class MeshT >
 void
-HoleFiller< MeshT >::removeDegeneratedFaces( std::vector< FH >& _faceHandles ){
+HoleFiller< MeshT >::removeDegeneratedFaces( std::vector< typename MeshT::FaceHandle >& _faceHandles ){
 
   for (int i = _faceHandles.size()-1; i >= 0 ; i--){
 
@@ -747,7 +754,7 @@ HoleFiller< MeshT >::removeDegeneratedFaces( std::vector< FH >& _faceHandles ){
     }
 
     //get the vertices (works only on triMeshes)
-    FVI fvi = mesh_.fv_iter( _faceHandles[i] );
+    typename MeshT::FaceVertexIterator fvi = mesh_.fv_iter( _faceHandles[i] );
     Point v0 = mesh_.point( *fvi);
     ++fvi;
     Point v1 = mesh_.point( *fvi );
@@ -762,7 +769,7 @@ HoleFiller< MeshT >::removeDegeneratedFaces( std::vector< FH >& _faceHandles ){
 
     if (d < FLT_MIN && d > -FLT_MIN) {
       // degenerated face found
-      FHI hIt = mesh_.fh_iter( _faceHandles[i] );
+      typename MeshT::FaceHalfedgeIterator hIt = mesh_.fh_iter( _faceHandles[i] );
 
       //try to collapse one of the edges
       while (hIt.is_valid()){
@@ -782,3 +789,8 @@ HoleFiller< MeshT >::removeDegeneratedFaces( std::vector< FH >& _faceHandles ){
 
 //=============================================================================
 
+
+//=============================================================================
+} // namespace HoleFiller
+} // namespace OpenMesh
+//=============================================================================

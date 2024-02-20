@@ -1,0 +1,63 @@
+
+#include <gtest/gtest.h>
+#include <Unittests/unittests_common.hh>
+#include <OpenMesh/Tools/HoleFiller/HoleFillerT.hh>
+
+namespace {
+
+class OpenMeshHoleFiller_Triangle : public OpenMeshBase {
+
+    protected:
+
+        // This function is called before each test is run
+        virtual void SetUp() {
+
+            // Do some initial stuff with the member data here...
+        }
+
+        // This function is called after all tests are through
+        virtual void TearDown() {
+
+            // Do some final stuff with the member data here...
+        }
+
+    // Member already defined in OpenMeshBase
+    //Mesh mesh_;
+};
+
+/*
+ * ====================================================================
+ * Define tests below
+ * ====================================================================
+ */
+
+/*
+ */
+TEST_F(OpenMeshHoleFiller_Triangle,Triangle_Hole_Filling) {
+
+  mesh_.clear();
+
+
+  bool ok = OpenMesh::IO::read_mesh(mesh_, "cube_2holes.off");
+
+  ASSERT_TRUE(ok);
+
+  // Check setup
+  EXPECT_EQ(7050u, mesh_.n_vertices() ) << "Wrong number of vertices";
+  EXPECT_EQ(13996u, mesh_.n_faces() )    << "Wrong number of faces";
+
+
+  // Initialize subdivider
+  OpenMesh::HoleFiller::HoleFiller<Mesh> filler(mesh_);
+
+
+  // Execute the algorithm
+  filler.fill_all_holes();
+
+
+  EXPECT_EQ(7526u, mesh_.n_vertices() ) << "Wrong number of vertices after smoothing?";
+  EXPECT_EQ(15048u, mesh_.n_faces() )    << "Wrong number of faces after smoothing?";
+
+}
+
+}
