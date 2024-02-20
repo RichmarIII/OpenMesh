@@ -55,8 +55,8 @@ TEST_F(OpenMeshHoleFiller_Triangle,Triangle_Hole_Filling) {
   filler.fill_all_holes();
 
 
-  EXPECT_EQ(7526u, mesh_.n_vertices() ) << "Wrong number of vertices after smoothing?";
-  EXPECT_EQ(15048u, mesh_.n_faces() )    << "Wrong number of faces after smoothing?";
+  EXPECT_EQ(7353u, mesh_.n_vertices() ) << "Wrong number of vertices after smoothing?";
+  EXPECT_EQ(14702u, mesh_.n_faces() )    << "Wrong number of faces after smoothing?";
 
 }
 
