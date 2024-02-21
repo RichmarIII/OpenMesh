@@ -90,32 +90,31 @@ template< class MeshT >
 void
 HoleFiller< MeshT >::fill_all_holes( int _stages )
 {
-  // Collect all boundary edges
-  
+
+
+  // Collect all boundary edges  
   std::vector< typename MeshT::EdgeHandle > bdry_edge;
   
   for (auto ei : mesh_.edges())
     if ( ei.is_boundary() )
       bdry_edge.push_back( ei );
   
+
   // Fill holes
-  
   int cnt = 0;
   for (auto i : bdry_edge)
     if ( mesh_.is_boundary( i ) )
     {
       ++cnt;
-      std::cerr << "Filling hole " << cnt << "\n";
+      omlog() << "Filling hole " << cnt << "\n";
       fill_hole( i, _stages );
     }
   
-  
   // Smooth fillings
-
   if ( _stages <= 2 )
     return;
 
-  std::cerr << "Stage 3 : Smoothing the hole fillings ... ";
+  omlog() << "Stage 3 : Smoothing the hole fillings ... ";
   
   OpenMesh::Smoother::JacobiLaplaceSmootherT< MeshT > smoother( mesh_ );
   smoother.initialize( OpenMesh::Smoother::SmootherT< MeshT >::
@@ -123,7 +122,6 @@ HoleFiller< MeshT >::fill_all_holes( int _stages )
                OpenMesh::Smoother::SmootherT< MeshT >::C1 );
   
   smoother.smooth( 500 );
-  std::cerr << "ok\n";
 }
 
 
@@ -138,27 +136,25 @@ template< class MeshT >
 void
 HoleFiller< MeshT >::fill_hole(typename MeshT::EdgeHandle _eh, int _stages )
 {
-  std::cerr << "  Stage 1 : Computing a minimal triangulation ... ";
 
-  //remember last vertex for selection of new ones
+  omlog() << "  Stage 1 : Computing a minimal triangulation ... ";
+
+  // remember last vertex for selection of new ones
   typename MeshT::VertexHandle old_last_handle = *(--mesh_.vertices_end());
 
   // No boundary edge, no hole
-  
-  if ( ! mesh_.is_boundary( _eh ) )
+  if ( ! mesh_.is_boundary( _eh ) ) {
+      omerr() << "fill_hole: Given edge handle is not a boundary edge at a hole!" << std::endl;
     return;
+  }
   
-  
-  // Get boundary halfedge
-  
+  // Get boundary halfedge  
   OpenMesh::SmartHalfedgeHandle hh = make_smart(_eh, mesh_).h0();
 
   if ( ! hh.is_boundary() )
     hh = hh.opp();
   
-  
   // Collect boundary vertices
-  
   boundary_vertex_.clear();
   opposite_vertex_.clear();
   
@@ -188,8 +184,7 @@ HoleFiller< MeshT >::fill_hole(typename MeshT::EdgeHandle _eh, int _stages )
   
   int nv = boundary_vertex_.size();
   
-  // Compute an initial triangulation
-  
+  // Compute an initial triangulation 
   w_.clear();
   w_.resize( nv, std::vector<Weight>( nv, Weight() ) );
   
@@ -222,20 +217,16 @@ HoleFiller< MeshT >::fill_hole(typename MeshT::EdgeHandle _eh, int _stages )
     }
   }
 
-  
   // Actually fill the hole. We collect all triangles and edges of
-  // this filling for further processing.
-  
+  // this filling for further processing. 
   hole_edge_.clear();
   hole_triangle_.clear();
   if ( fill( 0, nv - 1 ) ){
-  
-    std::cerr << "ok\n";
 
     if ( _stages <= 1 )
       return;
     
-    std::cerr << "  Stage 2 : Fairing the filling ... ";
+    omlog() << "  Stage 2 : Fairing the filling ... " << std::endl;
     
     std::vector< OpenMesh::SmartFaceHandle > handles = hole_triangle_;
     
@@ -249,9 +240,8 @@ HoleFiller< MeshT >::fill_hole(typename MeshT::EdgeHandle _eh, int _stages )
       if ( !mesh_.status(*old_end).deleted() )
         mesh_.status(*old_end).set_selected( true );
 
-    std::cerr << "ok\n";
   }else
-    std::cerr << "Could not create triangulation" << std::endl;
+      omerr() << "Could not create triangulation" << std::endl;
 }
 
 
@@ -353,7 +343,6 @@ HoleFiller< MeshT >::fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHan
   mesh_.remove_property(orderProp);
 
   // Do the patch fairing
-
   bool did_refine = true;
 
   for ( int k = 0; k < 40 && did_refine; ++k )

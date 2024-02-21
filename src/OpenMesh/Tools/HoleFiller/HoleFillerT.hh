@@ -61,22 +61,30 @@ public:
   explicit HoleFiller( MeshT & _mesh );
   ~HoleFiller();
 
-  // Identify and fill all holes of the mesh.
+  /** Identify and fill all holes of the mesh.
+   *
+   */
   void fill_all_holes( int _stages = 3 );
 
 
-  // Fill a hole which is identified by one of its boundary edges.
+  /** Fill a hole which is identified by one of its boundary edges.
+   *
+   * @param _eh     Edge Handle of a boundary halfedge at a hole that should be filled
+   * @param _stages If not set to 3, tha algorithm will abort after the given stage
+   *
+   */
   void fill_hole( typename MeshT::EdgeHandle _eh, int _stages = 3 );
 
-  // Fair a filling
-  //void fairing( std::vector< FH >& _faceHandles );
-  void fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHandles );
 
-  // Remove degenerated faces from the filling
-  void removeDegeneratedFaces( std::vector< typename MeshT::FaceHandle >& _faceHandles );
+
 
 private:
 
+
+    void fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHandles );
+
+    // Remove degenerated faces from the filling
+    void removeDegeneratedFaces( std::vector< typename MeshT::FaceHandle >& _faceHandles );
 
     // A weight is a tuple of area and maximum dihedral angle
     //
