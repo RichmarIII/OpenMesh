@@ -75,9 +75,6 @@ public:
    */
   void fill_hole( typename MeshT::EdgeHandle _eh, int _stages = 3 );
 
-
-
-
 private:
 
 
@@ -114,8 +111,8 @@ private:
         Scalar area_;
     };
 
-    // Refine a face
-    bool refine( typename MeshT::FaceHandle _fh );
+  // Refine a face
+  bool refine( typename MeshT::FaceHandle _fh );
 
   // Relax an edge
   bool relax_edge( OpenMesh::SmartEdgeHandle _eh );
@@ -159,15 +156,15 @@ private:
         / \     / \     / \   
        /   \   /   \   /   \  
             \ /     \ /      
-	     *       * <- opposite_vertex_
+             *       * <- opposite_vertex_
   */
 
 
-  typedef std::vector< typename MeshT::VertexHandle >                 VHVec;
+  typedef std::vector< typename MeshT::VertexHandle >                          VHVec;
   typedef typename std::vector< typename MeshT::VertexHandle >::iterator       VHVecIter;
   typedef typename std::vector< typename MeshT::VertexHandle >::const_iterator CVHVecIter;
 
-  typedef std::vector< typename MeshT::FaceHandle >                 FHVec;
+  typedef std::vector< typename MeshT::FaceHandle >                          FHVec;
   typedef typename std::vector< typename MeshT::FaceHandle >::iterator       FHVecIter;
   typedef typename std::vector< typename MeshT::FaceHandle >::const_iterator CFHVecIter;
 

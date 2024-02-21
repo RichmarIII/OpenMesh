@@ -43,8 +43,8 @@ TEST_F(OpenMeshHoleFiller_Triangle,Triangle_Hole_Filling) {
   ASSERT_TRUE(ok);
 
   // Check setup
-  EXPECT_EQ(5219u, mesh_.n_vertices() ) << "Wrong number of vertices";
-  EXPECT_EQ(10369u, mesh_.n_faces() )    << "Wrong number of faces";
+  EXPECT_EQ(1456u, mesh_.n_vertices() ) << "Wrong number of vertices";
+  EXPECT_EQ(2864u, mesh_.n_faces() )    << "Wrong number of faces";
 
 
   // Initialize subdivider
@@ -55,8 +55,8 @@ TEST_F(OpenMeshHoleFiller_Triangle,Triangle_Hole_Filling) {
   filler.fill_all_holes();
 
 
-  EXPECT_EQ(5330u, mesh_.n_vertices() ) << "Wrong number of vertices after smoothing?";
-  EXPECT_EQ(10656u, mesh_.n_faces() )    << "Wrong number of faces after smoothing?";
+  EXPECT_EQ(1507u, mesh_.n_vertices() ) << "Wrong number of vertices after smoothing?";
+  EXPECT_EQ(3010u, mesh_.n_faces() )    << "Wrong number of faces after smoothing?";
 
 }
 
