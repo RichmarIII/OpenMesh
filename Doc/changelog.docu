@@ -13,6 +13,11 @@
 <li>Update Doxygen config format</li>
 </ul>
 
+<b>Tools</b>
+<ul>
+<li>HoleFiller: Added a simple Holefilling algorith.</li>
+</ul>
+
 <b>IO</b>
 <ul>
 <li>PLY reader/writer: Fixed color trait Vec3f compilation for PLY writer</li>
