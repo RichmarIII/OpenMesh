@@ -48,7 +48,7 @@ TEST_F(OpenMeshHoleFiller_Triangle,Triangle_Hole_Filling) {
 
 
   // Initialize subdivider
-  OpenMesh::HoleFiller::HoleFiller<Mesh> filler(mesh_);
+  OpenMesh::HoleFiller::HoleFillerT<Mesh> filler(mesh_);
 
 
   // Execute the algorithm

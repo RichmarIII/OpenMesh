@@ -53,7 +53,7 @@ namespace OpenMesh {
 namespace HoleFiller {
 
 template< class MeshT >
-HoleFiller< MeshT >::HoleFiller(MeshT &_mesh )
+HoleFillerT< MeshT >::HoleFillerT(MeshT &_mesh )
   : mesh_( _mesh )
 {
   mesh_.request_vertex_status();
@@ -69,7 +69,7 @@ HoleFiller< MeshT >::HoleFiller(MeshT &_mesh )
 
 
 template< class MeshT >
-HoleFiller< MeshT >::~HoleFiller()
+HoleFillerT< MeshT >::~HoleFillerT()
 {
   mesh_.release_vertex_status();
   mesh_.release_edge_status();
@@ -88,7 +88,7 @@ HoleFiller< MeshT >::~HoleFiller()
 
 template< class MeshT >
 void
-HoleFiller< MeshT >::fill_all_holes( int _stages )
+HoleFillerT< MeshT >::fill_all_holes( int _stages )
 {
 
 
@@ -134,7 +134,7 @@ HoleFiller< MeshT >::fill_all_holes( int _stages )
 
 template< class MeshT >
 void
-HoleFiller< MeshT >::fill_hole(typename MeshT::EdgeHandle _eh, int _stages )
+HoleFillerT< MeshT >::fill_hole(typename MeshT::EdgeHandle _eh, int _stages )
 {
 
   omlog() << "  Stage 1 : Computing a minimal triangulation ... ";
@@ -248,7 +248,7 @@ HoleFiller< MeshT >::fill_hole(typename MeshT::EdgeHandle _eh, int _stages )
 /// path fairing
 template< class MeshT >
 void
-HoleFiller< MeshT >::fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHandles ){
+HoleFillerT< MeshT >::fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHandles ){
 
   //generate vector of all edges
   hole_edge_.clear();
@@ -374,7 +374,7 @@ HoleFiller< MeshT >::fairing( std::vector< OpenMesh::SmartFaceHandle >& _faceHan
 
 template< class MeshT >
 bool
-HoleFiller< MeshT >::refine(typename MeshT::FaceHandle _fh )
+HoleFillerT< MeshT >::refine(typename MeshT::FaceHandle _fh )
 {
  
   // Collect the three edges of the face into e0, e1, e2
@@ -462,7 +462,7 @@ HoleFiller< MeshT >::refine(typename MeshT::FaceHandle _fh )
 
 template< class MeshT >
 bool
-HoleFiller< MeshT >::relax_edge( OpenMesh::SmartEdgeHandle _eh )
+HoleFillerT< MeshT >::relax_edge( OpenMesh::SmartEdgeHandle _eh )
 {
   if ( mesh_.status( _eh ).locked() )
    return false;
@@ -508,7 +508,7 @@ HoleFiller< MeshT >::relax_edge( OpenMesh::SmartEdgeHandle _eh )
 
 template< class MeshT >
 bool
-HoleFiller< MeshT >::in_circumsphere( const Point & _x,
+HoleFillerT< MeshT >::in_circumsphere( const Point & _x,
 				    const Point & _a,
 				    const Point & _b,
 				    const Point & _c ) const
@@ -550,7 +550,7 @@ HoleFiller< MeshT >::in_circumsphere( const Point & _x,
 
 template< class MeshT >			
 bool
-HoleFiller< MeshT >::fill( int _i, int _j )
+HoleFillerT< MeshT >::fill( int _i, int _j )
 {
   // If the two vertices _i and _j are adjacent, there is nothing to do.
 
@@ -595,8 +595,8 @@ HoleFiller< MeshT >::fill( int _i, int _j )
 
 
 template< class MeshT >			
-typename HoleFiller< MeshT >::Weight
-HoleFiller< MeshT >::weight( int _i, int _j, int _k )
+typename HoleFillerT< MeshT >::Weight
+HoleFillerT< MeshT >::weight( int _i, int _j, int _k )
 {
   // Return an infinite weight if the insertion of this triangle
   // would create complex edges.
@@ -665,7 +665,7 @@ HoleFiller< MeshT >::weight( int _i, int _j, int _k )
 
 template< class MeshT >			
 bool
-HoleFiller< MeshT >::exists_edge( OpenMesh::SmartVertexHandle _u, typename MeshT::VertexHandle _w )
+HoleFillerT< MeshT >::exists_edge( OpenMesh::SmartVertexHandle _u, typename MeshT::VertexHandle _w )
 {
   for ( auto vohi : _u.outgoing_halfedges() )
     if ( ! vohi.edge().is_boundary() )
@@ -686,7 +686,7 @@ HoleFiller< MeshT >::exists_edge( OpenMesh::SmartVertexHandle _u, typename MeshT
 
 template< class MeshT >			
 typename MeshT::Scalar
-HoleFiller< MeshT >::area( typename MeshT::VertexHandle _a, typename MeshT::VertexHandle _b, typename MeshT::VertexHandle _c )
+HoleFillerT< MeshT >::area( typename MeshT::VertexHandle _a, typename MeshT::VertexHandle _b, typename MeshT::VertexHandle _c )
 {
   Point a( mesh_.point( _a ) );
   Point b( mesh_.point( _b ) );
@@ -711,7 +711,7 @@ HoleFiller< MeshT >::area( typename MeshT::VertexHandle _a, typename MeshT::Vert
 
 template< class MeshT >			
 typename MeshT::Scalar
-HoleFiller< MeshT >::dihedral_angle( typename MeshT::VertexHandle _u, typename MeshT::VertexHandle _v, typename MeshT::VertexHandle _a, typename MeshT::VertexHandle _b )
+HoleFillerT< MeshT >::dihedral_angle( typename MeshT::VertexHandle _u, typename MeshT::VertexHandle _v, typename MeshT::VertexHandle _a, typename MeshT::VertexHandle _b )
 {
   Point u( mesh_.point( _u ) );
   Point v( mesh_.point( _v ) );
@@ -731,7 +731,7 @@ HoleFiller< MeshT >::dihedral_angle( typename MeshT::VertexHandle _u, typename M
 /// remove degenerated faces
 template< class MeshT >
 void
-HoleFiller< MeshT >::removeDegeneratedFaces( std::vector< typename MeshT::FaceHandle >& _faceHandles ){
+HoleFillerT< MeshT >::removeDegeneratedFaces( std::vector< typename MeshT::FaceHandle >& _faceHandles ){
 
   for (int i = _faceHandles.size()-1; i >= 0 ; i--){
 

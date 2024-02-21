@@ -50,7 +50,7 @@ namespace OpenMesh {
 namespace HoleFiller {
 
 template< class MeshT >
-class HoleFiller
+class HoleFillerT
 {
     typedef typename MeshT::Point         Point;
     typedef typename MeshT::Scalar        Scalar;
@@ -58,8 +58,8 @@ class HoleFiller
 public:
 
   // Ctors
-  explicit HoleFiller( MeshT & _mesh );
-  ~HoleFiller();
+  explicit HoleFillerT( MeshT & _mesh );
+  ~HoleFillerT();
 
   /** Identify and fill all holes of the mesh.
    *
