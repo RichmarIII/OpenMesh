@@ -8,6 +8,11 @@
 
 <tr valign=top><td><b>11.0</b> (?/?/?)</td><td>
 
+<b>Core</b>
+<ul>
+<li>Changed add_vertex and new_vertex to copy the given position by value instead of by reference. Avoids crash when copying directly inside mesh on reallocation and most compilers optimize that to be faster.</li>
+</ul>
+
 <b>Documentation</b>
 <ul>
 <li>Update Doxygen config format</li>

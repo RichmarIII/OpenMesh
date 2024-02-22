@@ -17,6 +17,7 @@ set(UNITTEST_SRC
   unittests_mesh_dual.cc
   unittests_mesh_type.cc
   unittests_mixed_decimater.cc
+  unittests_new_vertex.cc
   unittests_normal_calculations.cc
   unittests_polymesh_collapse.cc
   unittests_polymesh_vec2i.cc
