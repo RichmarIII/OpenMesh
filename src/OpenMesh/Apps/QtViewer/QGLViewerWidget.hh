@@ -57,6 +57,10 @@
     #include <QtOpenGLWidgets/QOpenGLWidget>
 #endif
 
+#ifndef __APPLE__
+  #include <GL/gl.h>
+#endif
+
 //== FORWARD DECLARATIONS =====================================================
 
 class QMenu;
