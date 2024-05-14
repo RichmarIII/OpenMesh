@@ -26,6 +26,7 @@
 <b>IO</b>
 <ul>
 <li>PLY reader/writer: Fixed color trait Vec3f compilation for PLY writer</li>
+<li>OBJ Reader/Writer: Avoid precision loss when writing coordinates and normals.</li>
 </ul>
 
 <b>Build System</b>
