@@ -57,6 +57,8 @@
     #include <QtOpenGLWidgets/QOpenGLWidget>
 #endif
 
+#include <GL/gl.h>
+
 //== FORWARD DECLARATIONS =====================================================
 
 class QMenu;

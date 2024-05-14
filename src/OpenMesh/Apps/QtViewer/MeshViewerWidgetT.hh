@@ -57,6 +57,7 @@
 #include <OpenMesh/Tools/Utils/Timer.hh>
 #include <OpenMesh/Apps/QtViewer/QGLViewerWidget.hh>
 
+#include <GL/gl.h>
 
 //== FORWARDS =================================================================
 
