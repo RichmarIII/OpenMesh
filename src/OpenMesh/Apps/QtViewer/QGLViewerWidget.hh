@@ -57,7 +57,9 @@
     #include <QtOpenGLWidgets/QOpenGLWidget>
 #endif
 
-#include <GL/gl.h>
+#ifndef __APPLE__
+  #include <GL/gl.h>
+#endif
 
 //== FORWARD DECLARATIONS =====================================================
 
