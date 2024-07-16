@@ -8,7 +8,6 @@ cppcheck:
   image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   timeout: 3h
   artifacts:
     paths:

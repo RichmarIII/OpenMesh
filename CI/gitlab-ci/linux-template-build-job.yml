@@ -11,7 +11,6 @@ build-{{BUILDTYPE}}-{{COMPILER}}-{{LANGUAGE}}-{{QT_VERSION}}:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "{{COMPILER}}"
     LANGUAGE: "{{LANGUAGE}}"

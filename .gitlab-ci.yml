@@ -28,7 +28,6 @@ cppcheck:
   image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   timeout: 3h
   artifacts:
     paths:
@@ -47,7 +46,6 @@ build-debug-gcc-cpp11-qt6.1.2:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "gcc"
     LANGUAGE: "cpp11"
@@ -71,7 +69,6 @@ test-debug-gcc-cpp11-qt6.1.2:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
     - MultiThreads
   variables:
     COMPILER: "gcc"
@@ -103,7 +100,6 @@ build-release-gcc-cpp11-qt6.1.2:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "gcc"
     LANGUAGE: "cpp11"
@@ -127,7 +123,6 @@ test-release-gcc-cpp11-qt6.1.2:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
     - MultiThreads
   variables:
     COMPILER: "gcc"
@@ -159,7 +154,6 @@ build-debug-clang-cpp11-qt6.1.2:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "clang"
     LANGUAGE: "cpp11"
@@ -183,7 +177,6 @@ test-debug-clang-cpp11-qt6.1.2:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
     - MultiThreads
   variables:
     COMPILER: "clang"
@@ -215,7 +208,6 @@ build-release-clang-cpp11-qt6.1.2:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "clang"
     LANGUAGE: "cpp11"
@@ -239,7 +231,6 @@ test-release-clang-cpp11-qt6.1.2:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
     - MultiThreads
   variables:
     COMPILER: "clang"
@@ -272,7 +263,6 @@ build-debug-gcc-cpp14-qt5.15.1:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "gcc"
     LANGUAGE: "cpp14"
@@ -296,7 +286,6 @@ test-debug-gcc-cpp14-qt5.15.1:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
     - MultiThreads
   variables:
     COMPILER: "gcc"
@@ -328,7 +317,6 @@ build-release-gcc-cpp14-qt5.15.1:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "gcc"
     LANGUAGE: "cpp14"
@@ -352,7 +340,6 @@ test-release-gcc-cpp14-qt5.15.1:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
     - MultiThreads
   variables:
     COMPILER: "gcc"
@@ -384,7 +371,6 @@ build-debug-clang-cpp14-qt5.15.1:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "clang"
     LANGUAGE: "cpp14"
@@ -408,7 +394,6 @@ test-debug-clang-cpp14-qt5.15.1:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
     - MultiThreads
   variables:
     COMPILER: "clang"
@@ -440,7 +425,6 @@ build-release-clang-cpp14-qt5.15.1:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
   variables:
     COMPILER: "clang"
     LANGUAGE: "cpp14"
@@ -464,7 +448,6 @@ test-release-clang-cpp14-qt5.15.1:
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
-    - stretch
     - MultiThreads
   variables:
     COMPILER: "clang"
@@ -732,7 +715,6 @@ Sources:
   script: "CI/ci-source.sh"
   tags:
      - Linux
-     - stretch     
   dependencies: []
   artifacts:
     paths:

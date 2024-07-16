@@ -176,7 +176,7 @@ del *.exe
 
 IF %errorlevel% NEQ 0 exit /b %errorlevel%
 
-move OpenMesh-*.exe "OpenMesh-10.0-Git-Master-%BUILD_PLATFORM%-%STRING_ARCH%%STRING_DLL%%STRING_APPS%.exe"
+move OpenMesh-*.exe "OpenMesh-11.0-Git-Master-%BUILD_PLATFORM%-%STRING_ARCH%%STRING_DLL%%STRING_APPS%.exe"
 
 
 

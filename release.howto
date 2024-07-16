@@ -6,6 +6,7 @@
    src/OpenMesh/Core/System/config.h
    README
    CMakeLists.txt ( version setting in project call)
+   CI/Windows.bat
 3. Tag the current version in the git 
 4. Create HTML-Documentation in OpenMesh/Documentation (!)
 5. Create tar-ball and zip-archive ( -> Done by CI)

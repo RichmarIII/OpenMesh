@@ -29,7 +29,6 @@ Sources:
   script: "CI/ci-source.sh"
   tags:
      - Linux
-     - stretch     
   dependencies: []
   artifacts:
     paths:
