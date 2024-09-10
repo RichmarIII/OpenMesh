@@ -9,6 +9,10 @@ All Documentation, binaries and original source code are available at www.openme
 The main git repository is available at:  
 https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh.git  
 
+To clone the repository use:
+`git clone --recursive https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh.git`
+
+
 The gitlab site can be found here:  
 https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh  
 
