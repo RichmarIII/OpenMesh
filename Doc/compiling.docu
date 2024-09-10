@@ -35,6 +35,12 @@ Install the following external libraries / frameworks if you want to use the inc
 <tr><td>Qt5</td><td><a href="http://qt-project.org/downloads" target="_blank">https://www.qt.io/download</a></td></tr>
 </table><br>
 
+\section download_source Getting the source code
+You can download one of the source packages provided at our website: <a href="https://www.graphics.rwth-aachen.de/software/openmesh/download/" target="_blank">OpenMesh.org</a><br>
+<br>
+Or to get the latest version you can clone the repository using git. Make sure to clone recursively to get all required dependencies:<br>
+git clone --recursive https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh.git
+
 \section build_systems Chosing build system
 
 %OpenMesh can be built using the <b>cmake</b> build system.
