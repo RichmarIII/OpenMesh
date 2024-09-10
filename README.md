@@ -10,7 +10,7 @@ The main git repository is available at:
 https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh.git  
 
 To clone the repository use:
-`git clone --recursive https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh.git`
+`git clone --recursive https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh.git`
 
 
 The gitlab site can be found here:  
